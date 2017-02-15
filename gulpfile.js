@@ -12,21 +12,20 @@ const elixir = require('laravel-elixir');
  */
 
 elixir(mix => {
-    mix.copy('./bower_components/bootstrap/dist/fonts', 'public/assets/fonts');
-    mix.styles([
-        './bower_components/bootstrap/dist/css/bootstrap.css',
-        './bower_components/angular-ui-grid/ui-grid.css'
-    ], 'public/assets/css/vendor.css');
+    mix.copy('./bower_components/bootstrap/dist/fonts', 'public/fonts');
     mix.less([
-        './resources/assets/less/styles.less',
-    ], 'public/assets/css/styles.css');
+        './resources/assets/less/styles.less'
+    ], './resources/assets/css/styles.css');
+    mix.styles([
+        './bower_components/angular-material/angular-material.css',
+        './resources/assets/css/styles.css'
+    ], 'public/css/app.css');
     mix.scripts([
         './bower_components/angular/angular.js',
-        './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-        './bower_components/angular-ui-grid/ui-grid.js'
-    ], 'public/assets/js/vendor.js');
-    mix.scripts([
-        './resources/assets/js/scripts.js',
-    ], 'public/assets/js/scripts.js');
+        './bower_components/angular-animate/angular-animate.js',
+        './bower_components/angular-aria/angular-aria.js',
+        './bower_components/angular-messages/angular-messages.js',
+        './bower_components/angular-material/angular-material.js'
+    ], 'public/js/app.js');
 
 });
