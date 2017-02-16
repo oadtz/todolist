@@ -25,7 +25,8 @@ elixir(mix => {
         './bower_components/angular-animate/angular-animate.js',
         './bower_components/angular-aria/angular-aria.js',
         './bower_components/angular-messages/angular-messages.js',
-        './bower_components/angular-material/angular-material.js'
+        './bower_components/angular-material/angular-material.js',
+        './resources/assets/js/scripts.js'
     ], 'public/js/app.js');
-
+    mix.version(['css/app.css', 'js/app.js']);
 });
