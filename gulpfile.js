@@ -21,7 +21,6 @@ elixir(mix => {
     ], 'public/css/app.css');
     mix.scripts([
         './bower_components/angular/angular.js',
-        './bower_components/angular-route/angular-route.js',
         './bower_components/angular-resource/angular-resource.js',
         './bower_components/angular-animate/angular-animate.js',
         './bower_components/angular-aria/angular-aria.js',

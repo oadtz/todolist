@@ -41,15 +41,18 @@ class GenItemCommand extends Command
         //
         for ($i = 0; $i < 1000; $i++) {
             $item = new Item([
-                'subject'           =>  \Lipsum::short()->text(3),
-                'description'       =>  \Lipsum::medium()->text(20),
+                'subject'           =>  \Lipsum::short()->text(1),
+                'description'       =>  \Lipsum::short()->text(3),
             ]);
             
-            $dueDate = rand(-20, 100);
+            $dueDate = rand(-50, 100);
+            $isDone = rand(-1, 1);
 
-            if ($dueDate > 0) {
+            if ($dueDate > -20) {
                 $item->due_date = \Carbon\Carbon::now()->addDays($dueDate)->hour(23)->minute(59);
             }
+
+            $item->is_done = boolval($isDone);
             
             $item->save();
         }

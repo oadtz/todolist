@@ -1,23 +1,10 @@
-angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-inview'])
-    .config(['$mdThemingProvider', '$routeProvider', '$locationProvider', function($mdThemingProvider, $routeProvider, $locationProvider) {
+angular.module('todolist', ['ngMaterial', 'ngResource', 'angular-inview'])
+    .config(['$mdThemingProvider', function($mdThemingProvider) {
 
         $mdThemingProvider.theme('default')
             .primaryPalette('blue-grey')
             .accentPalette('orange');
 
-        $routeProvider
-            .when('/list', {
-                templateUrl: '/list',
-                controller: 'ListController'
-            })
-            .when('/logout', {
-                templateUrl: '/logout'
-            })
-            .otherwise({
-                redirectTo: '/list'
-            });
-
-        $locationProvider.hashPrefix('');
     }])
     .factory('Item', ['$resource', function($resource) {
         return $resource('/api/item/:id', null, {
@@ -30,57 +17,29 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
             return moment.utc(dt).fromNow();
         };
     }])
-    .controller('TodolistController', ['$scope', '$rootScope', '$location', '$route', '$mdSidenav', '$mdDialog', function($scope, $rootScope, $location, $route, $mdSidenav, $mdDialog) {
+
+.controller('TodolistController', ['$scope', '$rootScope', '$mdSidenav', '$mdDialog', 'Item', function($scope, $rootScope, $mdSidenav, $mdDialog, Item) {
 
         $scope.init = function() {
+            $scope.items = [];
             $scope.menu = [
-                { name: 'To Do List', icon: 'watch_later', href: '/list' },
-                { name: 'Logout', href: '/logout' }
+                { name: 'Pending', icon: 'watch_later', view: 0 },
+                { name: 'Done', icon: 'check', view: 1 }
             ];
 
-            $scope.selectMenu($location.path() || '/pending');
+            $scope.selectMenu($scope.menu[0]);
         }
 
-        $scope.selectMenu = function(href) {
-            $scope.currentMenu = $scope.menu.find(function(menu) {
-                return menu.href == href;
-            });
-
-            $location.path($scope.currentMenu.href);
+        $scope.selectMenu = function(menu) {
+            $scope.items = [];
+            $scope.$done = false;
+            $scope.currentMenu = menu;
+            $scope.getItems();
         }
 
         $scope.openMenu = function() {
             $mdSidenav('menu').toggle();
         }
-
-        $scope.newItem = function(ev) {
-            $mdDialog.show({
-                    controller: 'CreateController',
-                    templateUrl: '/item',
-                    parent: angular.element(document.body),
-                    targetEvent: ev,
-                    clickOutsideToClose: true,
-                    fullscreen: false // Only for -xs, -sm breakpoints.
-                })
-                .then(function(item) {
-                    $rootScope.lastCreatedItem = item;
-                }, function() {
-                    // User cancel
-                });
-        }
-    }])
-    .controller('ListController', ['$scope', '$rootScope', '$mdDialog', 'Item', function($scope, $rootScope, $mdDialog, Item) {
-
-        $scope.init = function() {
-            $scope.items = [];
-            $scope.$view = 0;
-        }
-
-        $scope.changeView = function() {
-            $scope.items = [];
-            $scope.$done = false;
-            $scope.getItems();
-        };
 
         $scope.getItems = function() {
             $scope.$loading = true;
@@ -90,7 +49,7 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
             if ($scope.items.length > 0) {
                 limit = $scope.items[$scope.items.length - 1]._id;
             }
-            view = $scope.$view || 0;
+            view = $scope.currentMenu.view || 0;
 
             var items = Item.query({ is_done: view, limit: limit }, function() {
                 if (items.length == 0)
@@ -153,12 +112,32 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
                 });
         }
 
+        $scope.newItem = function(ev) {
+            $mdDialog.show({
+                    controller: 'CreateController',
+                    templateUrl: '/item',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    fullscreen: false // Only for -xs, -sm breakpoints.
+                })
+                .then(function(item) {
+                    $rootScope.lastCreatedItem = item;
+                }, function() {
+                    // User cancel
+                });
+        }
+
         $rootScope.$watch('lastCreatedItem', function(newVal, oldVal) {
             if (newVal && newVal !== oldVal) {
-                $scope.items.unshift(newVal);
+                if ($scope.$view == 1) {
+                    $scope.$view = 0;
+                    $scope.changeView();
+                } else {
+                    $scope.items.unshift(newVal);
+                }
             }
         });
-
     }])
     .controller('CreateController', ['$scope', '$mdDialog', 'Item', function($scope, $mdDialog, Item) {
         $scope.init = function() {
