@@ -15,7 +15,7 @@ class ItemController extends Controller {
 
     public function index(Request $request)
     {
-        return response()->json($this->itemService->list($request->input('is_done'), $request->input('limit')));
+        return response()->json($this->itemService->query($request->input('is_done'), $request->input('limit')));
     }
 
     public function store(Request $request)

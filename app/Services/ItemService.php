@@ -7,7 +7,7 @@ use MongoDB\BSON\ObjectID;
 
 class ItemService extends Service {
 
-    public function list($is_done, $limit)
+    public function query($is_done, $limit)
     {
         $item = Item::where('is_done', boolval($is_done));
 
