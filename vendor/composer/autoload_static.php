@@ -260,6 +260,14 @@ class ComposerStaticInit8717da2458bb6312c9cc6b286abaee09
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
             ),
+            'Magyarjeti\\Loripsum' => 
+            array (
+                0 => __DIR__ . '/..' . '/magyarjeti/loripsum-client/src',
+            ),
+            'Magyarjeti\\LaravelLipsum' => 
+            array (
+                0 => __DIR__ . '/..' . '/magyarjeti/laravel-lipsum/src',
+            ),
         ),
         'J' => 
         array (
@@ -290,22 +298,29 @@ class ComposerStaticInit8717da2458bb6312c9cc6b286abaee09
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\GenItemCommand' => __DIR__ . '/../..' . '/app/Console/Commands/GenItemCommand.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Api\\ItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ItemController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/SiteController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Item' => __DIR__ . '/../..' . '/app/Item.php',
+        'App\\Model' => __DIR__ . '/../..' . '/app/Model.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Services\\ItemService' => __DIR__ . '/../..' . '/app/Services/ItemService.php',
+        'App\\Services\\Service' => __DIR__ . '/../..' . '/app/Services/Service.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
@@ -1544,6 +1559,11 @@ class ComposerStaticInit8717da2458bb6312c9cc6b286abaee09
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
+        'Magyarjeti\\LaravelLipsum\\LipsumFacade' => __DIR__ . '/..' . '/magyarjeti/laravel-lipsum/src/Magyarjeti/LaravelLipsum/LipsumFacade.php',
+        'Magyarjeti\\LaravelLipsum\\LipsumServiceProvider' => __DIR__ . '/..' . '/magyarjeti/laravel-lipsum/src/Magyarjeti/LaravelLipsum/LipsumServiceProvider.php',
+        'Magyarjeti\\Loripsum\\Client' => __DIR__ . '/..' . '/magyarjeti/loripsum-client/src/Magyarjeti/Loripsum/Client.php',
+        'Magyarjeti\\Loripsum\\Http\\AdapterInterface' => __DIR__ . '/..' . '/magyarjeti/loripsum-client/src/Magyarjeti/Loripsum/Http/AdapterInterface.php',
+        'Magyarjeti\\Loripsum\\Http\\CurlAdapter' => __DIR__ . '/..' . '/magyarjeti/loripsum-client/src/Magyarjeti/Loripsum/Http/CurlAdapter.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',

@@ -11,10 +11,9 @@
 |
 */
 
-Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
-    Route::resource('roomtype', 'RoomTypeController');
-});
-
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('item', 'SiteController@item');
+Route::get('pending', 'SiteController@pending');
+Route::get('done', 'SiteController@done');
+Route::get('login', 'SiteController@login');
+Route::get('logout', 'SiteController@logout');
+Route::get('/', 'SiteController@index');

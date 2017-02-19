@@ -12,7 +12,6 @@ const elixir = require('laravel-elixir');
  */
 
 elixir(mix => {
-    mix.copy('./bower_components/bootstrap/dist/fonts', 'public/fonts');
     mix.less([
         './resources/assets/less/styles.less'
     ], './resources/assets/css/styles.css');
@@ -22,10 +21,14 @@ elixir(mix => {
     ], 'public/css/app.css');
     mix.scripts([
         './bower_components/angular/angular.js',
+        './bower_components/angular-route/angular-route.js',
+        './bower_components/angular-resource/angular-resource.js',
         './bower_components/angular-animate/angular-animate.js',
         './bower_components/angular-aria/angular-aria.js',
         './bower_components/angular-messages/angular-messages.js',
         './bower_components/angular-material/angular-material.js',
+        './bower_components/angular-inview/angular-inview.js',
+        './bower_components/moment/moment.js',
         './resources/assets/js/scripts.js'
     ], 'public/js/app.js');
     mix.version(['css/app.css', 'js/app.js']);
