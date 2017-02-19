@@ -42,6 +42,9 @@ angular.module('todolist', ['ngMaterial', 'ngResource', 'angular-inview'])
         }
 
         $scope.getItems = function() {
+            if ($scope.$loading)
+                return;
+
             $scope.$loading = true;
 
             var limit = null,
@@ -54,6 +57,7 @@ angular.module('todolist', ['ngMaterial', 'ngResource', 'angular-inview'])
             var items = Item.query({ is_done: view, limit: limit }, function() {
                 if (items.length == 0)
                     $scope.$done = true;
+
                 $scope.items = $scope.items.concat(items);
                 $scope.$loading = false;
             });
