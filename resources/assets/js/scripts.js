@@ -6,25 +6,23 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
             .accentPalette('orange');
 
         $routeProvider
-            .when('/pending', {
-                templateUrl: '/pending',
-                controller: 'PendingController'
-            })
-            .when('/done', {
-                templateUrl: '/done'
+            .when('/list', {
+                templateUrl: '/list',
+                controller: 'ListController'
             })
             .when('/logout', {
                 templateUrl: '/logout'
             })
             .otherwise({
-                redirectTo: '/pending'
+                redirectTo: '/list'
             });
 
         $locationProvider.hashPrefix('');
     }])
     .factory('Item', ['$resource', function($resource) {
         return $resource('/api/item/:id', null, {
-            'update': { method: 'PUT' },
+            'check': { method: 'PUT', params: { id: '@_id', status: 1 } },
+            'uncheck': { method: 'PUT', params: { id: '@_id', status: 0 } }
         });
     }])
     .filter('countdown', [function() {
@@ -36,8 +34,7 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
 
         $scope.init = function() {
             $scope.menu = [
-                { name: 'Pending', icon: 'watch_later', href: '/pending' },
-                { name: 'Done', icon: 'check', href: '/done' },
+                { name: 'To Do List', icon: 'watch_later', href: '/list' },
                 { name: 'Logout', href: '/logout' }
             ];
 
@@ -72,18 +69,31 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
                 });
         }
     }])
-    .controller('PendingController', ['$scope', '$rootScope', '$mdDialog', 'Item', function($scope, $rootScope, $mdDialog, Item) {
+    .controller('ListController', ['$scope', '$rootScope', '$mdDialog', 'Item', function($scope, $rootScope, $mdDialog, Item) {
 
         $scope.init = function() {
             $scope.items = [];
+            $scope.$view = 0;
         }
 
-        $scope.getItems = function(limit) {
+        $scope.changeView = function() {
+            $scope.items = [];
+            $scope.$done = false;
+            $scope.getItems();
+        };
+
+        $scope.getItems = function() {
             $scope.$loading = true;
-            var items = Item.query({ limit: limit }, function() {
-                if (items.length > 0)
-                    $scope.limit = items[items.length - 1]._id;
-                else
+
+            var limit = null,
+                view = null;
+            if ($scope.items.length > 0) {
+                limit = $scope.items[$scope.items.length - 1]._id;
+            }
+            view = $scope.$view || 0;
+
+            var items = Item.query({ is_done: view, limit: limit }, function() {
+                if (items.length == 0)
                     $scope.$done = true;
                 $scope.items = $scope.items.concat(items);
                 $scope.$loading = false;
@@ -122,6 +132,24 @@ angular.module('todolist', ['ngMaterial', 'ngRoute', 'ngResource', 'angular-invi
                     .cancel('Cancel'))
                 .then(function() {
                     item.$delete({ id: item._id });
+                });
+        }
+
+        $scope.checkItem = function(item) {
+            $mdDialog.show($mdDialog.confirm()
+                    .title(item.is_done ? 'Set as done?' : 'Set as not done?')
+                    .textContent('Please confirm to change the status of this item.')
+                    .ariaLabel('Change Status of Item')
+                    .ok('OK')
+                    .cancel('Cancel'))
+                .then(function() {
+                    if (item.is_done) {
+                        item.$check();
+                    } else {
+                        item.$uncheck();
+                    }
+                }, function() {
+                    item.is_done = !item.is_done;
                 });
         }
 

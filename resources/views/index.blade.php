@@ -43,7 +43,7 @@
         </md-button>
         <div layout="row" flex class="fill-height">
           <h2 class="md-toolbar-item md-breadcrumb md-headline">
-            <span class="md-breadcrumb-page">To Do List / @{{currentMenu.name}}</span>
+            <span class="md-breadcrumb-page">To Do List</span>
           </h2>
 
           <span flex></span> <!-- use up the empty space -->

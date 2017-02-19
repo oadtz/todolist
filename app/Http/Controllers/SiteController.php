@@ -9,14 +9,9 @@ class SiteController extends Controller {
         return view('index');
     }
 
-    public function pending()
+    public function list()
     {
-        return view('pending');
-    }
-
-    public function done()
-    {
-        return view('done');
+        return view('list');
     }
 
     public function login()

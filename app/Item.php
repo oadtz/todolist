@@ -18,9 +18,4 @@ class Item extends Model {
 
         return $this->due_date->lte(new \Carbon\Carbon);
     }
-
-    public function scopePending($query)
-    {
-        return $query->where('is_done', false);
-    }
 }

@@ -43,11 +43,11 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button type="submit" class="md-raised md-primary">
-       Save
-      </md-button>
       <md-button ng-click="cancel()">
         Cancel
+      </md-button>
+      <md-button type="submit">
+       Save
       </md-button>
     </md-dialog-actions>
   </form>

@@ -7,9 +7,9 @@ use MongoDB\BSON\ObjectID;
 
 class ItemService extends Service {
 
-    public function listPending($limit)
+    public function list($is_done, $limit)
     {
-        $item = Item::pending();
+        $item = Item::where('is_done', boolval($is_done));
 
         if ($limit)
             $item->where('_id', '<', new ObjectID($limit));
@@ -33,6 +33,16 @@ class ItemService extends Service {
         return $item;
     }
 
+    public function setDone($id, $status = false)
+    {
+        if (!$item = Item::find($id))
+            abort(404);
+        
+        $item->is_done = boolval($status);
+        $item->save();
+
+        return $item;
+    }
 
     public function delete($id)
     {
