@@ -94,10 +94,10 @@ angular.module('todolist', ['ngMaterial', 'ngResource', 'angular-inview'])
                     .ok('OK')
                     .cancel('Cancel'))
                 .then(function() {
-                    item.$delete({ id: item._id }, function () {
-                        for (i = 0; i < $scope.items.length; i++)  {
+                    item.$delete({ id: item._id }, function() {
+                        for (i = 0; i < $scope.items.length; i++) {
                             if ($scope.items[i]._id == item._id) {
-                                $scope.items.splice(i);
+                                $scope.items.splice(i, 1);
                                 break;
                             }
                         }
