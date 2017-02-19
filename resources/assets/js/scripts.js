@@ -176,8 +176,9 @@ angular.module('todolist', ['ngMaterial', 'ngResource', 'angular-inview'])
         $scope.init = function() {
             $scope.item = angular.copy(item);
 
-            if ($scope.item.due_date)
-                $scope.due_date = new Date($scope.item.due_date);
+            if ($scope.item.due_date) {
+                $scope.due_date = moment($scope.item.due_date).toDate();
+            }
         }
 
         $scope.hide = function() {

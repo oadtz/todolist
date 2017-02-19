@@ -26,7 +26,7 @@
             </md-input-container>
             <md-input-container class="md-block">
               <label>Description</label>
-              <textarea ng-model="item.description" md-maxlength="150" rows="3"></textarea>
+              <textarea ng-model="item.description" md-maxlength="1000" rows="3"></textarea>
             </md-input-container>
             <md-input-container>
               <label>Due date</label>
