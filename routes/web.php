@@ -12,6 +12,4 @@
 */
 
 Route::get('item', 'SiteController@item');
-Route::get('list', 'SiteController@list');
-Route::get('done', 'SiteController@done');
 Route::get('/', 'SiteController@index');

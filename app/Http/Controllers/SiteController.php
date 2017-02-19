@@ -9,21 +9,6 @@ class SiteController extends Controller {
         return view('index');
     }
 
-    public function list()
-    {
-        return view('list');
-    }
-
-    public function login()
-    {
-        return view('login');
-    }
-
-    public function logout()
-    {
-        return view('logout');
-    }
-
     public function item()
     {
         return view('item');
