@@ -34,11 +34,16 @@ angular.module('todolist', ['ngMaterial', 'ngResource', 'angular-inview'])
             $scope.items = [];
             $scope.$done = false;
             $scope.currentMenu = menu;
+            $scope.closeMenu();
             $scope.getItems();
         }
 
         $scope.openMenu = function() {
             $mdSidenav('menu').toggle();
+        }
+
+        $scope.closeMenu = function() {
+            $mdSidenav('menu').close();
         }
 
         $scope.getItems = function() {
